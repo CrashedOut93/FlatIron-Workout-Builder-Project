@@ -16,13 +16,31 @@ function ExercisePage() {
   useEffect(() => {
     fetch(`https://exercisedb.p.rapidapi.com/exercises?rapidapi-key=77e7b80605msh242886ef2c7d7e8p1041adjsn30fa46c2ba04`)
       .then(resp => resp.json())
-      .then(data => setExercises(data));
+      .then(data => {
+        setExercises(data)
+        bodyPartTypes(data)
+      });
   }, [])
+  
+function bodyPartTypes(data){
+  const allBodyParts = data.map(exercise => exercise.bodyPart );
 
-  function handleAddExercise(excerciseToAdd) {
+  const uniqueBodyParts = {};
+
+  for(let i=0; i<allBodyParts.length ; i++){
+    if(!uniqueBodyParts[allBodyParts[i]]){
+      uniqueBodyParts[allBodyParts[i]] = true
+    }
+  }
+  console.log(Object.keys(uniqueBodyParts))
+}
+  
+function handleAddExercise(excerciseToAdd) {
+   
     const myExerciseList = myExercises.find(
       (exercise) => exercise.id === excerciseToAdd.id
     );
+   
     if (!myExerciseList) {
       setMyExercises([...myExercises, excerciseToAdd]);
     }

@@ -1,7 +1,7 @@
 function ExerciseCard( {exercise, onExerciseClick} ) {
 
     function handleClick() {
-        console.log(exercise)
+        onExerciseClick(exercise) 
     }
 
     return (
@@ -11,6 +11,7 @@ function ExerciseCard( {exercise, onExerciseClick} ) {
             <p>Equipment: {exercise.equipment}</p>
             <p>Body Part: {exercise.bodyPart}</p>
             <p>Target: {exercise.target}</p>
+            
         </li>
     )
 }
